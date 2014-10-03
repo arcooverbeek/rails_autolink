@@ -143,7 +143,8 @@ module RailsAutolink
 
           def auto_link_usernames(text)
             text.gsub /(?<=\s|^)@[A-Za-z0-9_]+(?=\b)/ do |username|
-              link_to(username, "http://www.twitter.com/#{username.gsub('@', '')}")
+              link_to(username, user_path(username.sub('@', '')))
+              # link_to(username, "http://www.twitter.com/#{username.gsub('@', '')}")
             end.html_safe
           end
 
