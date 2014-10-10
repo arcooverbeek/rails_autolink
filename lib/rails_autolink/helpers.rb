@@ -62,7 +62,7 @@ module RailsAutolink
           sanitize_options = options[:sanitize_options] || {}
           text = conditional_sanitize(text, sanitize, sanitize_options).to_str
           case options[:link].to_sym
-            
+
             when :all             then conditional_html_safe(auto_link_hashtags(auto_link_usernames(auto_link_urls(auto_link_email_addresses(text, options[:html], options, &block), options[:html], &block) ), &block), sanitize)
             when :email_addresses then conditional_html_safe(auto_link_email_addresses(text, options[:html], &block), sanitize)
             when :urls            then conditional_html_safe(auto_link_urls(text, options[:html], options, &block), sanitize)
@@ -142,7 +142,7 @@ module RailsAutolink
           end
 
           def auto_link_usernames(text)
-            text.gsub /(?<=\s|^)@[A-Za-z0-9_]+(?=\b)/ do |username|
+            text.gsub /\B@\w*[a-zA-Z]+\w*/ do |username|
               link_to(username, user_path(username.sub('@', '')))
               # link_to(username, "http://www.twitter.com/#{username.gsub('@', '')}")
             end.html_safe
